@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8</LangVersion>
+    <RootNamespace>OpenApi2JsonSchema</RootNamespace>
+    <PackageId>OpenAPI2JsonSchema</PackageId>
+    <PackageDescription>
+      This package helps creating JSON-schemas from a type and gives the user the capability of adding a OpenAPI-specification to this schema in order to add validation rules based on the OpenAPI-specification. With this package you only have to create a full OpenAPI-specification which then lets you create JSON-schemas for e.g. frontend-validation automatically.
+    </PackageDescription>
+    <PackageTags>OpenAPI;JsonSchema;JSON</PackageTags>    
+    <Summary>
+      A .NET Core library to create JSON-schemas based on OpenAPI-specifications.
+    </Summary>
+    <Version>1.0.0</Version>
+    <Authors>Philippe Krüttli</Authors>
+    <Company>Private</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.4" />
+    <PackageReference Include="NJsonSchema" Version="10.1.8" />
+  </ItemGroup>
+
+</Project>
