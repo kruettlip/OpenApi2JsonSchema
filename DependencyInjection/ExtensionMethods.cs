@@ -1,4 +1,6 @@
-﻿namespace OpenApi2JsonSchema.DependencyInjection
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace OpenApi2JsonSchema.DependencyInjection
 {
     public static class ExtensionMethods
     {
