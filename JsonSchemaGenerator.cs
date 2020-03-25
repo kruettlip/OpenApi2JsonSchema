@@ -6,15 +6,37 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NJsonSchema;
 using NJsonSchema.Generation;
+using OpenApi2JsonSchema.Configuration;
 
 namespace OpenApi2JsonSchema
 {
     public class JsonSchemaGenerator : IJsonSchemaGenerator
     {
-        public JsonSchema GetSchemaWithOpenApi<T>(string openApiUrl, string filePath = "swagger.json", bool caching = true)
+        public string FilePath { get; set; }
+
+        public bool CachingDisabled { get; set; }
+
+        public JsonSchemaGenerator()
+        {
+            var config = new JsonSchemaGeneratorConfiguration();
+            SetPropertiesBasedOnConfig(config);
+        }
+
+        public JsonSchemaGenerator(JsonSchemaGeneratorConfiguration config)
+        {
+            SetPropertiesBasedOnConfig(config);
+        }
+
+        private void SetPropertiesBasedOnConfig(JsonSchemaGeneratorConfiguration config)
+        {
+            FilePath = config.OpenApiFileDownloadPath;
+            CachingDisabled = config.CachingDisabled;
+        }
+
+        public JsonSchema GetSchemaWithOpenApi<T>(string openApiUrl)
         {
             var schema = GetSchema<T>();
-            var openApiDocument = GetOpenApiDocument(openApiUrl, filePath, caching);
+            var openApiDocument = GetOpenApiDocument(openApiUrl);
             var objectName = typeof(T).Name;
             schema.AddOpenApiSpecifications(openApiDocument, objectName);
             return schema;
@@ -36,23 +58,23 @@ namespace OpenApi2JsonSchema
             return schema;
         }
 
-        private static OpenApiDocument GetOpenApiDocument(string openApiUrl, string filePath, bool caching)
+        private OpenApiDocument GetOpenApiDocument(string openApiUrl)
         {
             string json = "";
 
-            if (!File.Exists(filePath) || !caching)
+            if (!File.Exists(FilePath) || CachingDisabled)
             {
                 var httpClient = new HttpClient();
                 json = httpClient.GetStringAsync(openApiUrl).Result;
-                if (caching)
+                if (!CachingDisabled)
                 {
-                    File.WriteAllText(filePath, json);
+                    File.WriteAllText(FilePath, json);
                 }
             }
 
-            if (caching)
+            if (!CachingDisabled)
             {
-                using var stream = File.OpenRead(filePath);
+                using var stream = File.OpenRead(FilePath);
                 return new OpenApiStreamReader().Read(stream, out var diagnostic);
             }
             else
