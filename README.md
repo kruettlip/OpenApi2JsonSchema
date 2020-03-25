@@ -4,6 +4,7 @@
 First you will need to create an OpenAPI-specification, which you'll be translating to Json-Schema later.
 #### Example
 If you use [Swashbuckle](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/) this might look something like this:
+
 **ConfigureServices()-method**
 ```csharp
 services.AddSwaggerGen(c =>
@@ -53,8 +54,7 @@ The JsonSchemaGeneratorConfiguration allows to specify the following optional pr
 - OpenApiUrl -> URL to the OpenAPI-specification
 - CachingDisabled -> Specify wheter or not caching should be disabled. Default is false.
 
-_Note that if you don't specify an URL for the OpenAPI-specification here in ConfigureServices()-method, you will need to 
-specify it whenever you use the JsonSchemaGenerator-instance._
+_Note that if you don't specify an URL for the OpenAPI-specification here in ConfigureServices()-method, you will need to specify it whenever you use the JsonSchemaGenerator-instance._
 
 
 ### Usage
@@ -62,13 +62,11 @@ You can generate a JsonSchema for any type using:
 ```csharp
 var schema = JsonSchemaGenerator.GetSchemaWithOpenApi<T>("<url-to-openapi-file>");
 ```
-_If not specified in Startup.cs, just replace <url-to-openapi-file> with the URL that points to your OpenAPI-JSON-file, otherwise pass 
-no parameter._
+_If not specified in Startup.cs, just replace <url-to-openapi-file> with the URL that points to your OpenAPI-JSON-file, otherwise pass no parameter._
 
 ### Configuration
 #### Delete OpenAPI-file on Startup
-Since the library downloads the specified OpenAPI-file and caches it for further usage, you can optionally delete the downloaded file 
-on Startup by adding the following lines to the Configure()-method in Startup.cs:
+Since the library downloads the specified OpenAPI-file and caches it for further usage, you can optionally delete the downloaded file on Startup by adding the following lines to the Configure()-method in Startup.cs:
 ```csharp
 app.UseOpenApi2JsonSchemaGenerator(new JsonSchemaGeneratorConfiguration
 {
