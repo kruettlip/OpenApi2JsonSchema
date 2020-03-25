@@ -35,9 +35,11 @@ using OpenApi2JsonSchema;
 ### Usage
 You can generate a JsonSchema for any type using:
 ```csharp
-var schema = JsonSchemaGenerator.GetSchemaWithOpenApi<T>("url-to-openapi-file>");
+var schema = JsonSchemaGenerator.GetSchemaWithOpenApi<T>("<url-to-openapi-file>");
+var schemaWithSpecifiedFilepath = JsonSchemaGenerator.GetSchemaWithOpenApi<T>("<url-to-openapi-file>", "<openapi-filepath>");
+var schemaNoCaching = JsonSchemaGenerator.GetSchemaWithOpenApi<T>("<url-to-openapi-file>", "", false);
 ```
-_Just replace <url-to-openapi-file> with the URL that points to your OpenAPI-JSON-file._
+_Just replace <url-to-openapi-file> with the URL that points to your OpenAPI-JSON-file and <openapi-filepath> with the path you want to save the OpenAPI-JSON-file to (only if caching is enabled -> default)._
 
 #### Create SchemaProvider
 Unless you want to specify the OpenAPI-path every time
