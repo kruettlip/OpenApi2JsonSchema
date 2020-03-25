@@ -5,7 +5,7 @@ namespace OpenApi2JsonSchema
 {
     public interface IJsonSchemaGenerator
     {
-        JsonSchema GetSchemaWithOpenApi<T>(string openApiUrl);
+        JsonSchema GetSchemaWithOpenApi<T>(string openApiUrl = "");
 
         JsonSchema GetSchema<T>(JsonSchemaGeneratorSettings generatorSettings);
     }

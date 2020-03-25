@@ -12,6 +12,8 @@ namespace OpenApi2JsonSchema
 {
     public class JsonSchemaGenerator : IJsonSchemaGenerator
     {
+        public string OpenApiUrl { get; set; }
+
         public string FilePath { get; set; }
 
         public bool CachingDisabled { get; set; }
@@ -29,12 +31,19 @@ namespace OpenApi2JsonSchema
 
         private void SetPropertiesBasedOnConfig(JsonSchemaGeneratorConfiguration config)
         {
+            OpenApiUrl = config.OpenApiUrl;
             FilePath = config.OpenApiFileDownloadPath;
             CachingDisabled = config.CachingDisabled;
         }
 
-        public JsonSchema GetSchemaWithOpenApi<T>(string openApiUrl)
+        public JsonSchema GetSchemaWithOpenApi<T>(string openApiUrl = "")
         {
+            if (string.IsNullOrEmpty(openApiUrl))
+            {
+                if (string.IsNullOrEmpty(OpenApiUrl))
+                    throw new System.Exception("URL for OpenAPI-specification cannot be null or empty.");
+                openApiUrl = OpenApiUrl;
+            }
             var schema = GetSchema<T>();
             var openApiDocument = GetOpenApiDocument(openApiUrl);
             var objectName = typeof(T).Name;
