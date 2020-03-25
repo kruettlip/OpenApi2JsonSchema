@@ -15,9 +15,7 @@ services.AddSwaggerGen(c =>
         c.AddFluentValidationRules();
       });
 ```
-In this example, an OpenAPI-specification is created. In order to keep Data Annotations out of its model, 
-this examples uses FluentValidationRules, that can be added easily using the last line in the example above from 
-[MicroElements.Swashbuckle.FluentValidation](https://www.nuget.org/packages/MicroElements.Swashbuckle.FluentValidation/).
+In this example, an OpenAPI-specification is created. In order to keep Data Annotations out of its model, this examples uses FluentValidationRules, that can be added easily using the last line in the example above from [MicroElements.Swashbuckle.FluentValidation](https://www.nuget.org/packages/MicroElements.Swashbuckle.FluentValidation/).
 
 **Configure()-method**
 ```csharp
