@@ -28,6 +28,7 @@ namespace OpenApi2JsonSchema
                 property.MaxProperties = openApiProperty.MaxProperties.GetValueOrDefault();
                 property.MinProperties = openApiProperty.MinProperties.GetValueOrDefault();
                 property.Pattern = openApiProperty.Pattern;
+                property.IsRequired = openApiProperty.MinLength.HasValue ? openApiProperty.MinLength > 0 : false;
             }
         }
     }
