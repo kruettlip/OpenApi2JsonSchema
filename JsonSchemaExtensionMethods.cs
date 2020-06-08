@@ -14,7 +14,7 @@ namespace OpenApi2JsonSchema
                 openApiDocument.Components.Schemas.TryGetValue(objectName, out var openApiSchema);
 
                 if (openApiSchema == null) continue;
-                openApiSchema.Properties.TryGetValue(propertyName.ToLower(), out var openApiProperty);
+                openApiSchema.Properties.TryGetValue(propertyName, out var openApiProperty);
                 if (openApiProperty == null) continue;
                 property.Maximum = openApiProperty.Maximum;
                 property.Minimum = openApiProperty.Minimum;
